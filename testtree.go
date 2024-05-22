@@ -2,14 +2,31 @@ package testtree
 
 import (
 	"fmt"
+	"io/fs"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/AWtnb/go-walk"
 )
 
+func GetPerm(path string) fs.FileMode {
+	s := string(os.PathSeparator)
+	elems := strings.Split(path, s)
+	for i := 0; i < len(elems); i++ {
+		ln := len(elems) - i
+		p := strings.Join(elems[0:ln], s)
+		if fs, err := os.Stat(p); err == nil {
+			return fs.Mode() & os.ModePerm
+		}
+
+	}
+	return 0700
+}
+
 func MakeTestDir(path string) error {
-	err := os.MkdirAll(path, 0700)
+	p := GetPerm(path)
+	err := os.MkdirAll(path, p)
 	return err
 }
 
