@@ -55,9 +55,8 @@ func MakeTestTree(root string, dirs []string, files []string) error {
 }
 
 func GetChildItems(root string) []string {
-	d := walk.Dir{All: true, Root: root}
-	d.SetWalkDepth(-1)
-	d.SetWalkException("")
+	var d walk.Dir
+	d.Init(root, true, -1, "")
 	found, err := d.GetChildItem()
 	if err != nil {
 		fmt.Println(err)

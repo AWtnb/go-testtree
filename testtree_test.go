@@ -11,7 +11,7 @@ func TestGetPerm(t *testing.T) {
 }
 
 func TestMakeTestDir(t *testing.T) {
-	err := testtree.MakeTestDir(`C:\Personal\gotemp\hoge`)
+	err := testtree.MakeTestDir(`C:\Personal\gotemp\huga`)
 	if err != nil {
 		t.Error(err)
 	}
